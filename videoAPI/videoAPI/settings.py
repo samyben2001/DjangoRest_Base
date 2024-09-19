@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -141,7 +140,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # ajout de la pagination (page par page)
     'PAGE_SIZE': 10, # nombre d'elements par page
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend'), # ajout du filtre
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend'), # ajout du filtre => besoin d'ajouter 'filter_backends = [DjangoFilterBackend]' dans les views
 }
 
 SIMPLE_JWT = {

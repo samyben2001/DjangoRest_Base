@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Realisateur
 from .serializers import RealisateurSerializer, RealisateurSerializerHyperLink
@@ -176,16 +176,16 @@ class RealisateurDetailGeneric(RetrieveUpdateDestroyAPIView):
 # region ViewSets
 class RealisateurViewSet(ModelViewSet):
     queryset = Realisateur.objects.all()
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['nom']
+    filter_backends = [DjangoFilterBackend] # permet de filtrer les requêtes
+    filterset_fields = ['nom'] # permet de filtrer les requêtes par nom
     
-    def get_permissions(self):
+    def get_permissions(self): # permet de modifier les permission en fonction de l'action
         permission_classes = []
         if self.action == 'retrieve':
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
     
-    def get_serializer_class(self, *args, **kwargs):
+    def get_serializer_class(self, *args, **kwargs): # permet de modifier le serializer en fonction de l'action
         if self.action == 'list':
             return RealisateurSerializerHyperLink
         return RealisateurSerializer

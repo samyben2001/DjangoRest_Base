@@ -33,6 +33,8 @@ class RealisateurSerializer(serializers.ModelSerializer):
             fields = '__all__'     
 # endregion
 
+# ------------------------------------------------------------------------------------------------------
+
 # region HyperLink Model Serializer (les relations sont représentées en tant que URLS)
 class RealisateurSerializerHyperLink(serializers.HyperlinkedModelSerializer):
       nom_complet = serializers.SerializerMethodField()

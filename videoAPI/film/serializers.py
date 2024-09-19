@@ -45,6 +45,8 @@ class FilmSerializer(serializers.ModelSerializer):
         fields = ['id', 'titre', 'description', 'date_sortie', 'realisateur', 'realisateur_id']
 # endregion
 
+# ------------------------------------------------------------------------------------------------------
+
 # region HyperLink Model Serializer (les relations sont représentées en tant que URLS)
 class FilmSerializerHyperLink(serializers.HyperlinkedModelSerializer):
     realisateur = serializers.HyperlinkedRelatedField(read_only=True, view_name='realisateur-detail')

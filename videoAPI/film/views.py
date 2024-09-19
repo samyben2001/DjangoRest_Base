@@ -141,11 +141,11 @@ class FilmDetail(APIView):
 # region Generic Views
 class FilmListGeneric(ListCreateAPIView):
     queryset = Film.objects.all()
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ['titre']
-    ordering_fields = ['nom', 'date_sortie']
+    filter_backends = [DjangoFilterBackend, OrderingFilter] # permet de filtrer et d'ordonner la reponse de la requête
+    filterset_fields = ['titre'] # permet de filtrer par titre
+    ordering_fields = ['nom', 'date_sortie'] # permet d'ordonner par nom ou date de sortie
     
-    def get_serializer_class(self):
+    def get_serializer_class(self): # permet de modifier le serializer en fonction de l'action
         if self.request.method == 'GET':
             return FilmSerializerHyperLink
         else:
