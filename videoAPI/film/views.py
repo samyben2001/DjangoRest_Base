@@ -133,6 +133,8 @@ class FilmDetail(APIView):
         return Response({'message': 'Le film a été supprimé'}, status=status.HTTP_204_NO_CONTENT)
 # endregion
 
+# ------------------------------------------------------------------------------------------------------
+
 # region Generic Views
 class FilmListGeneric(ListAPIView):
     queryset = Film.objects.all()
@@ -147,7 +149,10 @@ class FilmDetailGeneric(RetrieveUpdateDestroyAPIView):
     serializer_class = FilmSerializer
 # endregion
 
+# ------------------------------------------------------------------------------------------------------
+
 # region ViewSets
 class FilmViewSet(ModelViewSet):
-    pass
+    queryset = Film.objects.all()
+    serializer_class = FilmSerializer
 # endregion

@@ -169,7 +169,10 @@ class RealisateurDetailGeneric(RetrieveUpdateDestroyAPIView):
     serializer_class = RealisateurSerializer
 # endregion
 
+# ------------------------------------------------------------------------------------------------------
+
 # region ViewSets
 class RealisateurViewSet(ModelViewSet):
-    pass
+    queryset = Realisateur.objects.all()
+    serializer_class = RealisateurSerializer
 # endregion
