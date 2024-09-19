@@ -35,12 +35,12 @@ class RealisateurSerializer(serializers.ModelSerializer):
 
 # region HyperLink Model Serializer (les relations sont représentées en tant que URLS)
 class RealisateurSerializerHyperLink(serializers.HyperlinkedModelSerializer):
-      nom = serializers.SerializerMethodField()
+      nom_complet = serializers.SerializerMethodField()
       
       class Meta:
             model = Realisateur
-            fields = ['nom', 'url']
+            fields = ['nom_complet', 'url']
       
-      def get_nom(self, obj):
+      def get_nom_complet(self, obj):
             return f"{obj.prenom} {obj.nom}"
 # endregion

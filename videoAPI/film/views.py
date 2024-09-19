@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from rest_framework.parsers import JSONParser
 
+from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,6 +10,8 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
 
 from .models import Film
 from .serializers import FilmSerializer, FilmSerializerHyperLink
@@ -139,6 +141,9 @@ class FilmDetail(APIView):
 # region Generic Views
 class FilmListGeneric(ListCreateAPIView):
     queryset = Film.objects.all()
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['titre']
+    ordering_fields = ['nom', 'date_sortie']
     
     def get_serializer_class(self):
         if self.request.method == 'GET':
