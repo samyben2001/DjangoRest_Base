@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
@@ -149,4 +151,25 @@ class RealisateurDetail(APIView):
         realisateur = self.get_object(pk)
         realisateur.delete()
         return Response({'message': 'Le réalisateur a été supprimé'}, status=status.HTTP_204_NO_CONTENT)
+# endregion
+
+# ------------------------------------------------------------------------------------------------------
+
+# region Generic Views
+class RealisateurListGeneric(ListAPIView):
+    queryset = Realisateur.objects.all()
+    serializer_class = RealisateurSerializerHyperLink
+    
+class RealisateurCreateGeneric(CreateAPIView):
+    queryset = Realisateur.objects.all()
+    serializer_class = RealisateurSerializer
+
+class RealisateurDetailGeneric(RetrieveUpdateDestroyAPIView):
+    queryset = Realisateur.objects.all()
+    serializer_class = RealisateurSerializer
+# endregion
+
+# region ViewSets
+class RealisateurViewSet(ModelViewSet):
+    pass
 # endregion

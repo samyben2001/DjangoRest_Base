@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 
 from .models import Film
@@ -131,3 +133,21 @@ class FilmDetail(APIView):
         return Response({'message': 'Le film a été supprimé'}, status=status.HTTP_204_NO_CONTENT)
 # endregion
 
+# region Generic Views
+class FilmListGeneric(ListAPIView):
+    queryset = Film.objects.all()
+    serializer_class = FilmSerializerHyperLink
+    
+class FilmCreateGeneric(CreateAPIView):
+    queryset = Film.objects.all()
+    serializer_class = FilmSerializer
+
+class FilmDetailGeneric(RetrieveUpdateDestroyAPIView):
+    queryset = Film.objects.all()
+    serializer_class = FilmSerializer
+# endregion
+
+# region ViewSets
+class FilmViewSet(ModelViewSet):
+    pass
+# endregion
