@@ -43,9 +43,6 @@ class FilmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Film
         fields = ['id', 'titre', 'description', 'date_sortie', 'realisateur', 'realisateur_id']
-        
-        
-
 # endregion
 
 # region HyperLink Model Serializer (les relations sont représentées en tant que URLS)

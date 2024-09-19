@@ -30,8 +30,7 @@ from .models import Realisateur
 class RealisateurSerializer(serializers.ModelSerializer):
       class Meta:
             model = Realisateur
-            fields = '__all__'
-        
+            fields = '__all__'     
 # endregion
 
 # region HyperLink Model Serializer (les relations sont représentées en tant que URLS)

@@ -187,5 +187,4 @@ class RealisateurViewSet(ModelViewSet):
         queryset = Realisateur.objects.all()
         serializer = RealisateurSerializerHyperLink(queryset, many=True, context={'request': request})
         return Response(serializer.data)
-        
 # endregion
