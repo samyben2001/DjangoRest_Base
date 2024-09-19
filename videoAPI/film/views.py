@@ -6,9 +6,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Film
 from .serializers import FilmSerializer, FilmSerializerHyperLink
@@ -136,17 +137,20 @@ class FilmDetail(APIView):
 # ------------------------------------------------------------------------------------------------------
 
 # region Generic Views
-class FilmListGeneric(ListAPIView):
+class FilmListGeneric(ListCreateAPIView):
     queryset = Film.objects.all()
-    serializer_class = FilmSerializerHyperLink
     
-class FilmCreateGeneric(CreateAPIView):
-    queryset = Film.objects.all()
-    serializer_class = FilmSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return FilmSerializerHyperLink
+        else:
+            return FilmSerializer
+    
 
 class FilmDetailGeneric(RetrieveUpdateDestroyAPIView):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
+    permission_classes = [IsAuthenticated] # le client doit être authentifié pour accéder aux methodes de la classe
 # endregion
 
 # ------------------------------------------------------------------------------------------------------

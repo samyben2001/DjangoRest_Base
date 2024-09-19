@@ -167,6 +167,7 @@ class RealisateurCreateGeneric(CreateAPIView):
 class RealisateurDetailGeneric(RetrieveUpdateDestroyAPIView):
     queryset = Realisateur.objects.all()
     serializer_class = RealisateurSerializer
+    permission_classes = [IsAuthenticated] # le client doit être authentifié pour accéder aux methodes de la classe
 # endregion
 
 # ------------------------------------------------------------------------------------------------------
@@ -175,4 +176,16 @@ class RealisateurDetailGeneric(RetrieveUpdateDestroyAPIView):
 class RealisateurViewSet(ModelViewSet):
     queryset = Realisateur.objects.all()
     serializer_class = RealisateurSerializer
+    
+    def get_permissions(self):
+        permission_classes = []
+        if self.action == 'retrieve':
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+    
+    def list(self, request, *args, **kwargs):
+        queryset = Realisateur.objects.all()
+        serializer = RealisateurSerializerHyperLink(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+        
 # endregion
