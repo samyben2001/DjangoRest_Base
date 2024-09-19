@@ -111,7 +111,7 @@ def realisateur_detail(request, id):
 
 # region Class Based Views
 class RealisateurList(APIView):
-    # permission_classes = [IsAdminUser | IsAuthenticatedNoPost] # admin peut acceder à toutes les methodes alors qu'un user classic authentifié n'a accès qu'au GET
+    permission_classes = [IsAdminUser | IsAuthenticatedNoPost] # admin peut acceder à toutes les methodes alors qu'un user classic authentifié n'a accès qu'au GET
     
     def get(self, request):
         realisateurs = Realisateur.objects.all()
