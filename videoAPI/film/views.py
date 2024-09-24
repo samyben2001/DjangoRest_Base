@@ -153,7 +153,7 @@ class FilmListGeneric(ListCreateAPIView):
     
 
 class FilmDetailGeneric(RetrieveUpdateDestroyAPIView):
-    queryset = Film.objects.all()
+    queryset = Film.objects.all().prefetch_related('realisateur') # prefetch_related => permet de charger les réalisateurs dans les films pour une requête plus rapide
     serializer_class = FilmSerializer
     permission_classes = [IsAuthenticated] # le client doit être authentifié pour accéder aux methodes de la classe
 # endregion
@@ -162,6 +162,6 @@ class FilmDetailGeneric(RetrieveUpdateDestroyAPIView):
 
 # region ViewSets
 class FilmViewSet(ModelViewSet):
-    queryset = Film.objects.all()
+    queryset = Film.objects.all().prefetch_related('realisateur')
     serializer_class = FilmSerializer
 # endregion
